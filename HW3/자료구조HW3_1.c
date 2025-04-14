@@ -25,7 +25,7 @@
 #include <time.h>
 
 /* ===================================================== */
-/*              동적 배열 기반 Stack (Dynamic Array)              */
+/*           동적 배열 기반 Stack (Dynamic Array)           */
 /* ===================================================== */
 
 // 동적 배열 기반 스택 구조체 정의 (초기 용량을 1로 시작)
@@ -35,7 +35,7 @@ typedef struct {
     int top;         // 다음에 push 될 인덱스 (현재 스택 크기)
 } DynArrayStack;
 
-// 스택 생성: 초기 용량을 인자로 받아 생성 (문제 요구: 초기 용량 = 1)
+// 스택 생성: 초기 용량을 인자로 받아 생성
 DynArrayStack* createArrayStack(int initialCapacity) {
     DynArrayStack* stack = (DynArrayStack*)malloc(sizeof(DynArrayStack));
     if (!stack) {
@@ -53,7 +53,7 @@ DynArrayStack* createArrayStack(int initialCapacity) {
     return stack;
 }
 
-// 스택 용량 재할당 (현재 capacity의 2배로 확장)
+// 스택 용량 재할당
 void resizeArrayStack(DynArrayStack* stack) {
     int newCapacity = stack->capacity * 2;
     int* newArr = (int*)realloc(stack->arr, sizeof(int) * newCapacity);
@@ -78,7 +78,7 @@ void arrayPush(DynArrayStack* stack, int value) {
 // pop 연산: 스택이 비었으면 -1 리턴, 아니면 top 요소 반환
 int arrayPop(DynArrayStack* stack) {
     if (stack->top == 0)
-        return -1; // 언더플로우 처리
+        return -1;
     return stack->arr[--stack->top];
 }
 
@@ -92,7 +92,7 @@ void freeArrayStack(DynArrayStack* stack) {
 }
 
 /* ===================================================== */
-/*               연결 리스트 기반 Stack (Linked List)             */
+/*           연결 리스트 기반 Stack (Linked List)            */
 /* ===================================================== */
 
 // 연결 리스트 노드 정의
@@ -100,8 +100,6 @@ typedef struct ListNode {
     int data;
     struct ListNode *next;
 } ListNode;
-
-// 연결 리스트 기반 스택은 단순히 head 포인터를 사용하며, 맨 앞에 push/pop하는 방식으로 구현
 
 // push 연산: 새로운 노드를 생성하여 list의 앞에 삽입
 void listPush(ListNode** head, int value) {
@@ -118,7 +116,7 @@ void listPush(ListNode** head, int value) {
 // pop 연산: list의 head를 제거하고, 해당 데이터를 반환
 int listPop(ListNode** head) {
     if (*head == NULL)
-        return -1; // 언더플로우 처리
+        return -1;
     ListNode* temp = *head;
     int value = temp->data;
     *head = temp->next;
@@ -136,11 +134,10 @@ void freeListStack(ListNode** head) {
 }
 
 /* ===================================================== */
-/*                    main 함수 테스트                        */
+/*                    main 함수 테스트                      */
 /* ===================================================== */
 
 int main(void) {
-    // 테스트할 push/pop 횟수를 단계적으로 늘릴 배열
     int testCases[] = {100, 200, 300, 400, 500};
     int numCases = sizeof(testCases) / sizeof(testCases[0]);
     int i, j;
@@ -148,7 +145,7 @@ int main(void) {
     printf("[문제 1] ==== Dynamic Array Stack 테스트 ====\n");
     for (i = 0; i < numCases; i++) {
         int n = testCases[i];
-        // 초기 용량 1로 스택 생성 (과제 요구 사항)
+        // 초기 용량 1로 스택 생성
         DynArrayStack* arrStack = createArrayStack(1);
         
         clock_t start = clock();
