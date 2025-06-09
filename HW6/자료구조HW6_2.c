@@ -160,7 +160,6 @@
      // 랜덤 피벗 선택으로 정렬된 데이터에서도 균형잡힌 분할
      int randomIndex = low + rand() % (high - low + 1);
      
-     // 랜덤 원소와 맨 앞 원소 교환 (과제 요구사항)
      int temp = arr[randomIndex];
      arr[randomIndex] = arr[low];
      arr[low] = temp;
